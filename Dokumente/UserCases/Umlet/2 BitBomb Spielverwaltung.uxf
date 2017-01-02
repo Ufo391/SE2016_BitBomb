@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>140</x>
+      <y>350</y>
+      <w>60</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Spieler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>240</x>
+      <y>170</y>
+      <w>500</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>*Spielverwaltung*
+halign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>130</y>
+      <w>150</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;240.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>130</y>
+      <w>300</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;240.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>130</y>
+      <w>510</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;240.0;370.0;170.0;490.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>260</x>
+      <y>40</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*Singleplayer-*
+*verwaltung*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>620</x>
+      <y>40</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*Client-*
+*verwaltung*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>410</x>
+      <y>40</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*Server-*
+*verwaltung*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
