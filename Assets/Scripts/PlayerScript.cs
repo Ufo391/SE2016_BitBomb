@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour {
     private void move()
     {
         this.inputX = Input.GetAxis("Horizontal");
-        this.inputY = Input.GetAxis("Vertical");
+        this.inputY = Input.GetAxis("Vertical");        
         movement = new Vector3(speed.x * inputX, speed.y * inputY, 0);
         movement *= Time.deltaTime;
         transform.Translate(movement);
