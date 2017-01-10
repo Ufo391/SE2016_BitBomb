@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Spieler : Avatar {
-	
+
 	// Update is called once per frame
 	void Update () {
         inputHandler();

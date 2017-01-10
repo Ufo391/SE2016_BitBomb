@@ -3,26 +3,43 @@ using System.Collections;
 
 public class Map : MonoBehaviour {
 
-    private ArrayList block_list;
+    private ArrayList blocklist_inside;
+    private ArrayList blocklist_edges;
 
     public Map()
     {
-        block_list = new ArrayList();
+        blocklist_inside = new ArrayList();
+        blocklist_edges = new ArrayList();
     }
 
-    public void addBlock(GameObject block)
+    public void addBlock_inside(GameObject block)
     {
-        this.block_list.Add(block);
+        // Alle blöcke in der Spielfläche
+        this.blocklist_inside.Add(block);
     }
 
-    public ArrayList getBlockList()
+    public void addBlock_edge(GameObject block)
     {
-        return this.block_list;
+        // enthält die Map Grenzen
+        // muss getrennt werden da sonst die "Arraylistformel" nicht aufgeht
+        this.blocklist_edges.Add(block);
     }
 
-    public void setBlockList(ArrayList value)
+    public ArrayList getBlockList_inside()
     {
-        this.block_list = value;
+        return this.blocklist_inside;
     }
 
+    public ArrayList getBlockList_edges()
+    {
+        return this.blocklist_edges;
+    }
+
+    public GameObject getInsideBlockAt(Vector2 pos, Map_Builder config)
+    {
+        // Gibt nach Arrayformellogik den gesuchten Block zurück
+        // ACHTUNG pos müssen ganzzahlen sein
+        int index = ((int)pos.x * (config.mapSizeX-1)) + (int)pos.y;
+        return (GameObject)blocklist_inside[index];
+    }
 }

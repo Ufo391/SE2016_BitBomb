@@ -2,15 +2,16 @@
 
 public class Map_Builder : MonoBehaviour {
 
-    public int mapSizeX = 32;
+    public int mapSizeX = 32; // NUR QUADRATISCHE KARTEN GENERIEREN WEIL SONST DIE BLOCKERKENNUNG FEHLERHAFT WIRD
     public int mapSizeY = 32;
     public int mapOffsetX = 0;
     public int mapOffsetY = 0;
+    public float blockSize_inUnity = 1.28f; // Größe eines Blockes innerhalb von Unity
+
     public GameObject prefab_Block_Walk;
     public GameObject prefab_Block_Desctructable;
     public GameObject prefab_Block_Undesctrutalbe;
-    public GameObject prefab_Block_Hole;
-    private const float fixSizeSprite = 1.28f; // entspricht Pixelgröße Texture / 100
+    public GameObject prefab_Block_Hole;    
     private const int minimumMapSize = 8;
     private Map map;
 
@@ -43,16 +44,17 @@ public class Map_Builder : MonoBehaviour {
                 if(x == mapOffsetX - 1 || y == mapOffsetY - 1 || x+1 == this.mapOffsetX + this.mapSizeX || y+1 == this.mapOffsetY + this.mapSizeY)
                 {
                     //Ränder der Karte
-                    createBlock(this.prefab_Block_Undesctrutalbe,foreground_layer, new Vector3(x, y));
+                    map.addBlock_edge(createBlock(this.prefab_Block_Undesctrutalbe,foreground_layer, new Vector3(x, y)));
                 }else if (x % 2 == 1 && y % 2 == 1)
                 {
                     //"Säulen"
-                    createBlock(this.prefab_Block_Undesctrutalbe,foreground_layer, new Vector3(x, y));
+                    map.addBlock_inside(createBlock(this.prefab_Block_Undesctrutalbe,foreground_layer, new Vector3(x, y)));
                 }
                 else
                 {
                     //normaler Boden
-                    createBlock(this.prefab_Block_Walk,background_layer, new Vector3(x, y));
+                    map.addBlock_inside(createBlock(this.prefab_Block_Walk,background_layer, new Vector3(x, y)));
+                    // ODER RANDOM MAUER!
                 }          
             }
         }
@@ -61,13 +63,13 @@ public class Map_Builder : MonoBehaviour {
         fixZAxis(background_layer);
     }
 
-    private void createBlock(GameObject block, GameObject parentlayer, Vector3 vec)
+    private GameObject createBlock(GameObject block, GameObject parentlayer, Vector3 vec)
     {
         //Clont das Prefab und Positioniert den Block und hängt diesen dann in den richtigen Elternlayer
         GameObject tmp = Instantiate(block, transform.position, Quaternion.identity) as GameObject;
         tmp.transform.parent = parentlayer.transform;
-        tmp.transform.position = new Vector3(vec.x * (fixSizeSprite), vec.y * (fixSizeSprite));           
-        map.addBlock(tmp);
+        tmp.transform.position = new Vector3(vec.x * (blockSize_inUnity), vec.y * (blockSize_inUnity));
+        return tmp;
     }
 
     private void fixZAxis(GameObject layer)

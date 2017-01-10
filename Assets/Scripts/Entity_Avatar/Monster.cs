@@ -4,6 +4,8 @@ using System.Collections;
 public class Monster : Avatar {
 
     public float debug_value = 0;
+    private bool isOnTheWay = false;
+    private Vector2 target_block = new Vector2();
     private GameObject current_Target;
 	
 	// Update is called once per frame
@@ -33,50 +35,39 @@ public class Monster : Avatar {
     }
 
     private void movetoTarget()
-    {        
-        if(Vector2.Distance(this.avatar_object.transform.position,this.current_Target.transform.position) > 0.32f)
+    {
+        Vector2 movement = new Vector2(0f, 0f);
+        move(movement.x, movement.y);
+    }
+
+    private void ki()
+    {
+        // Kann nur in bestimmte Richtung gucken links rechts unten oben
+        // Checkt ob er in die Richtung gehen kann in der er grade schaut
+        // Checkt wie weit er gehen kann und setzt sich maximal das ende der begehbaren Blockweg als Ziel
+        // fängt an richtung Zielblock zu bewegen und schaut währenddessen um sich ob Spieler da ist 
+        // Wenn Spieler endeckt wird währenddessen dann wird der Zielblock auf die letzte bekante Position des Spielers gesetzt
+        // Wenn nicht geht das Monster zum normalen Zielblock und fängt bei Schritt eins an
+
+        float rnd = Random.value;
+        if(rnd <= 0.25f)
         {
-            Vector2 movement = new Vector2(0f, 0f);
-            float target_angle = calculate_angle(this.avatar_object.transform, this.current_Target.transform);
-            this.debug_value = target_angle;
-
-            //if ((target_angle < 180 && target_angle > 160) || (target_angle > -180 && target_angle < -160))
-            //{
-            //    // BUG FIX wenn target rechts vom Monster ist soll NIX gemacht werden!
-            //    // Ansonsten schüttelt der Gute seine Birne bis die CPU explodiert :)
-            //}
-            //else if (target_angle < 0)
-            //{
-            //    // nach oben gehen
-            //    movement.y = 1;
-            //}
-            //else if (target_angle > 0)
-            //{
-            //    // nach unten gehen
-            //    movement.y = -1;
-            //}
+            // oben
 
 
-            //if (target_angle < 90)
-            //{
-            //    // nach links gehen
-            //    movement.x = -1;
-            //}
-            //else if (target_angle > 90)
-            //{
-            //    // nach rechts gehen
-            //    movement.x = 1;
-            //}
+        }
+        else if(rnd <= 0.5f)
+        {
+            // unten
+        }
+        else if (rnd <= 0.75f)
+        {
+            // links
+        }else
+        {
+            // rechts
+        }
 
-            //move(movement.x/180, movement.y/180);
-            move(target_angle / 180 * -1, target_angle / 180 * -1);
-        }        
     }
-
-    private float calculate_angle(Transform first, Transform secound)
-    {       
-        Vector3 dir = first.position - secound.position;
-        dir = secound.transform.InverseTransformDirection(dir);        
-        return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-    }
+    
 }

@@ -3,13 +3,13 @@ using System.Collections;
 
 public class GameHandler : MonoBehaviour {
 
+    public bool check_wincondition()
+    {
+        return false;
+    }
 
-    // Use this for initialization
-    void Start () {
+    public void spawn_entities(GameObject world)
+    {
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-	}
 }
