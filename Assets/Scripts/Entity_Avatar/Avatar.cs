@@ -11,7 +11,7 @@ public class Avatar : MonoBehaviour {
     private Vector2 camera_scopeRadius_max;    
     protected GameObject avatar_object;
     private SpriteRenderer avatar_sprite = null;
-    public GameObject camera_object = null;
+    public Camera camera_object = null;
     public int camera_treshholdRatio = 2;
     private float blocktexturesize = 0f;
     private Map_Builder config;
@@ -19,11 +19,6 @@ public class Avatar : MonoBehaviour {
     // Use this for initialization
     void Start()
     {       
-        if (this.camera_object == null)
-        {
-            Debug.Log("INFO: Avatar ("+ this.name +") wurde kein Kameraobjekt zugewiesen");
-        }
-
         initialization();
     }
 	
@@ -39,19 +34,26 @@ public class Avatar : MonoBehaviour {
 
     private void initialization()
     {
-        this.avatar_object = transform.gameObject;      
+        this.avatar_object = transform.gameObject;
+        avatar_object.transform.parent = GameObject.Find("/Level/1-Foreground/Avatar/").transform;    
 
         //sprite
-        GameObject sprite_layer = GameObject.Find("/Level/1-Foreground/Avatar/" + avatar_object.name);
-        avatar_sprite = sprite_layer.GetComponent<SpriteRenderer>();
+        GameObject layer = GameObject.Find("/Level/1-Foreground/Avatar/" + avatar_object.name);
+        avatar_sprite = layer.GetComponent<SpriteRenderer>();
         if (avatar_sprite == null) { throw new System.Exception("FEHLER: SpriteRenderer nicht gefunden NULL"); }
 
-
-        GameObject layer = GameObject.Find("Scripts");
+        //MAP Builder
+        layer = GameObject.Find("/Scripts/MAP/");
         config = layer.GetComponent<Map_Builder>();
         if (config == null) { throw new System.Exception("FEHLER: MapBuilder Objekt nicht gefunden NULL"); }
         this.blocktexturesize = config.blockSize_inUnity;
-        calculate_cameraRatio();        
+
+        //Cameraobjekt
+        layer = GameObject.Find("/Renderer/Main Camera/");
+        this.camera_object = layer.GetComponent<Camera>();
+        if (camera_object == null) { throw new System.Exception("FEHLER: Kamera-Main Objekt nicht gefunden NULL"); }
+        calculate_cameraRatio();
+                        
     }
 
     protected Vector2 calculate_blockCoordinate()
@@ -76,8 +78,8 @@ public class Avatar : MonoBehaviour {
         movement *= Time.deltaTime;
         this.avatar_object.transform.Translate(movement);
         calculate_spriteDirection(movement);
-        this.curBlock_position = calculate_blockCoordinate();
-        getCurrent_block();       
+        //this.curBlock_position = calculate_blockCoordinate();
+        //getCurrent_block();       
     }
 
     private void calculate_spriteDirection(Vector3 _movement)
@@ -95,14 +97,10 @@ public class Avatar : MonoBehaviour {
 
     private void calculate_cameraRatio()
     {
-        // Bereechnet bis wo die Kamera folgen soll
-        GameObject scripts_layer = GameObject.Find("Scripts");
-        Map_Builder mapbuilder = scripts_layer.GetComponent<Map_Builder>();
-
-        this.camera_scopeRadius_min.x = mapbuilder.mapOffsetX * this.blocktexturesize + this.camera_treshholdRatio * this.blocktexturesize;
-        this.camera_scopeRadius_min.y = mapbuilder.mapOffsetY * this.blocktexturesize + this.camera_treshholdRatio * this.blocktexturesize;
-        this.camera_scopeRadius_max.x = mapbuilder.mapOffsetX + mapbuilder.mapSizeX *this.blocktexturesize - this.camera_treshholdRatio * this.blocktexturesize;
-        this.camera_scopeRadius_max.y = mapbuilder.mapOffsetY + mapbuilder.mapSizeY * this.blocktexturesize - this.camera_treshholdRatio * this.blocktexturesize;
+        this.camera_scopeRadius_min.x = config.mapOffsetX * this.blocktexturesize + this.camera_treshholdRatio * this.blocktexturesize;
+        this.camera_scopeRadius_min.y = config.mapOffsetY * this.blocktexturesize + this.camera_treshholdRatio * this.blocktexturesize;
+        this.camera_scopeRadius_max.x = config.mapOffsetX + config.mapSizeX *this.blocktexturesize - this.camera_treshholdRatio * this.blocktexturesize;
+        this.camera_scopeRadius_max.y = config.mapOffsetY + config.mapSizeY * this.blocktexturesize - this.camera_treshholdRatio * this.blocktexturesize;
     }
 
     private void cameraHandler()
