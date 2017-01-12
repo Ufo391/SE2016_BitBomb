@@ -10,15 +10,23 @@ public class Avatar : MonoBehaviour {
     private Vector2 camera_scopeRadius_min;
     private Vector2 camera_scopeRadius_max;    
     protected GameObject avatar_object;
-    private SpriteRenderer avatar_sprite = null;
+    public Sprite sprite_standard;
+    public Sprite sprite_action;
+    protected SpriteRenderer avatar_sprite = null;
     public Camera camera_object = null;
     public int camera_treshholdRatio = 2;
     private float blocktexturesize = 0f;
     private Map_Builder config;
+    protected bool isBusy = false;
 
     // Use this for initialization
     void Start()
     {       
+        if(sprite_standard == null || sprite_action == null)
+        {
+            throw new System.Exception("Sprite Attribute nicht belegt!");
+        }
+
         initialization();
     }
 	
@@ -31,6 +39,13 @@ public class Avatar : MonoBehaviour {
         }        
     }
 
+    protected IEnumerator wait_reset_sprite()
+    {
+        yield return new WaitForSeconds(1.5f);
+        avatar_sprite.sprite = sprite_standard;
+
+        isBusy = false;
+    }
 
     private void initialization()
     {

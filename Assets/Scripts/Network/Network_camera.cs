@@ -5,13 +5,14 @@ public class Network_camera : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Camera cam = GetComponent<Camera>();
         if (GetComponent<NetworkView>().isMine)
         {
-            GetComponent(Camera).enabled = true;
+            cam.enabled = true;
         }
         else
-        {
-            GetComponent(Camera).enabled = false;
+        {            
+            cam.enabled = false;
         }
     }
 	

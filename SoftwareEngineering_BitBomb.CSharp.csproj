@@ -82,11 +82,14 @@
     <Compile Include="Assets\Scripts\GUI\Button_ServerStart_click.cs" />
     <Compile Include="Assets\Scripts\GameHandler.cs" />
     <Compile Include="Assets\Scripts\HealthScript.cs" />
+    <Compile Include="Assets\Scripts\Items\BombObject.cs" />
+    <Compile Include="Assets\Scripts\Items\Bombscript.cs" />
     <Compile Include="Assets\Scripts\Map\Block.cs" />
     <Compile Include="Assets\Scripts\Map\Map.cs" />
     <Compile Include="Assets\Scripts\Map\Map_Builder.cs" />
     <Compile Include="Assets\Scripts\MoveScript.cs" />
     <Compile Include="Assets\Scripts\Network\Network_camera.cs" />
+    <Compile Include="Assets\Scripts\Network\SetupLocalPlayer.cs" />
     <Compile Include="Assets\Scripts\PlayerScript.cs" />
     <Compile Include="Assets\Scripts\ShotScript.cs" />
     <Compile Include="Assets\Scripts\WeaponScript.cs" />
